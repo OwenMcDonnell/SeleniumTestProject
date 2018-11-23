@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
@@ -10,7 +11,7 @@ namespace SeleniumTestProject
     [TestClass]
     public class SeleniumTests
     {
-        private TestContext testContextInstance;
+        //private TestContext testContextInstance;
         private IWebDriver driver;
         private string appURL;
 
@@ -21,8 +22,9 @@ namespace SeleniumTestProject
             driver.Navigate().GoToUrl(appURL + "/");
             driver.FindElement(By.LinkText("Docs")).Click();
             var element = driver.FindElement(By.Id("welcome-to-appveyor"));
-            this.driver.Manage().Window.Maximize();
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
             Assert.IsTrue(element.Displayed, "Verified title of the page");
         }
 
@@ -31,15 +33,15 @@ namespace SeleniumTestProject
         {
             appURL = "https://www.appveyor.com/";
 
-            string browser = "Chrome";
+            string browser = "Firefox";
             switch (browser)
             {
                 case "Chrome":
                     driver = new ChromeDriver();
                     break;
-                //case "Firefox":
-                //    driver = new FirefoxDriver();
-                //    break;
+                case "Firefox":
+                    driver = new FirefoxDriver();
+                    break;
                 //case "IE":
                 //    driver = new InternetExplorerDriver();
                 //    break;
