@@ -19,7 +19,7 @@ namespace SeleniumTestProject
         [TestMethod]
         public void TestMethod1()
         {
-            Console.WriteLine("inside test method 1");
+            
             driver.Navigate().GoToUrl(appURL + "/");
            
             
