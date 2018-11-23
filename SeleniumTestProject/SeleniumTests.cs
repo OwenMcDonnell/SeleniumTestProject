@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -20,13 +21,22 @@ namespace SeleniumTestProject
         {
             Console.WriteLine("inside test method 1");
             driver.Navigate().GoToUrl(appURL + "/");
-            driver.Manage().Window.Maximize();
-            driver.FindElement(By.LinkText("Docs")).Click();
-            var element = driver.FindElement(By.Id("welcome-to-appveyor"));
+           
             
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Window.Maximize();
+            Thread.Sleep(5000);
 
-            Assert.IsTrue(element.Displayed, "Verified title of the page");
+            //not sure why this implicit wait is not working
+            //TimeSpan timeoutValue = TimeSpan.FromSeconds(10);
+            //driver.Manage().Timeouts().ImplicitWait = timeoutValue;
+            
+            driver.FindElement(By.LinkText("Docs")).Click();
+            
+            var element = driver.FindElement(By.Id("welcome-to-appveyor"));
+
+
+
+            Assert.IsTrue(element.Displayed, "Verified element exists");
         }
 
         [TestInitialize()]
@@ -34,7 +44,7 @@ namespace SeleniumTestProject
         {
             appURL = "https://www.appveyor.com/";
 
-            string browser = "Firefox";
+            string browser = "Chrome";
             switch (browser)
             {
                 case "Chrome":
