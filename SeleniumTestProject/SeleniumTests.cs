@@ -20,9 +20,10 @@ namespace SeleniumTestProject
         {
             Console.WriteLine("inside test method 1");
             driver.Navigate().GoToUrl(appURL + "/");
+            driver.Manage().Window.Maximize();
             driver.FindElement(By.LinkText("Docs")).Click();
             var element = driver.FindElement(By.Id("welcome-to-appveyor"));
-            driver.Manage().Window.Maximize();
+            
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             Assert.IsTrue(element.Displayed, "Verified title of the page");
