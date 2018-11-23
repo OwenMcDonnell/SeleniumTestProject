@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumTestProject
 {
@@ -21,6 +22,7 @@ namespace SeleniumTestProject
             driver.FindElement(By.LinkText("Docs")).Click();
             var element = driver.FindElement(By.Id("welcome-to-appveyor"));
             this.driver.Manage().Window.Maximize();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             Assert.IsTrue(element.Displayed, "Verified title of the page");
         }
 
